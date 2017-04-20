@@ -1,6 +1,10 @@
 package entity;
 
+import exception.DataAccessException;
+import mapper.AnimalMapper;
+
 import java.sql.*;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,8 +18,9 @@ public class Animal {
     private int age;
     private String origin;
     private String health;
+    private AnimalMapper animalMapper;
 
-    public Animal(){}
+    public Animal(){this.animalMapper = new AnimalMapper();}
 
     public Animal(int profile_id, String species, String name, int age, String origin, String health) {
         this.profile_id = profile_id;
@@ -24,10 +29,19 @@ public class Animal {
         this.age = age;
         this.origin = origin;
         this.health = health;
+        this.animalMapper = new AnimalMapper();
+    }
+
+    public List<Animal> getAllAnimals() throws DataAccessException, ClassNotFoundException {
+        return animalMapper.getAlAnimals();
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getProfile_id() {
@@ -106,12 +120,5 @@ public class Animal {
                 ", origin='" + origin + '\'' +
                 ", health='" + health + '\'' +
                 '}';
-    }
-
-    public void getAllAnimals() throws SQLException {
-        Connection con = DriverManager.
-                getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres");
-        Statement statement = con.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT * from zoo.animal");
     }
 }
