@@ -13,14 +13,19 @@
     <title>Zoo</title>
   </head>
   <body>
-  <%--$END$--%>
-  <c:forEach items="${animalsList}" var="animal">
-    <tr>
-      <td><c:out value="${animal.name}" /></td>
-    </tr>
-  </c:forEach>
-  <c:out value="${profile.nutrition}" />
-  <c:out value="${profile.wayoflife}" />
+
+  <form action="${pageContext.request.contextPath}/Zoo" method="post">
+
+    <p><input type="text" name="workerId"/>Worker ID</p>
+    <p><input type="text" name="locationId"/>Location ID</p>
+    <p><input type="text" name="action"/>Action</p>
+    <p><input type="text" name="from"/>From</p>
+    <p><input type="text" name="to"/>To</p>
+
+    <p>
+      <input type="submit" name="submit" value="Search!" /></p>
+  </form>
+
 
   </body>
 </html>
